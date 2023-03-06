@@ -2,28 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public interface IPlayerController
 {
-
-
-    public struct FrameInput
+    Vector3 Velocity { get; }
+    FrameInput Input { get; }
+    bool JumpingThisFrame { get; }
+    bool LandingThisFrame { get; }
+    Vector3 RawMovement { get; }
+    bool Grounded { get; }
+}
+public struct FrameInput
+{
+    public float X;
+    public bool JumpDown;
+    public bool JumpUp;
+}
+public struct RayRange
+{
+    public RayRange(float x1, float y1, float x2, float y2, Vector2 dir)
     {
-        public float X;
-        public bool JumpDown;
-        public bool JumpUp;
-    }
-    public struct RayRange
-    {
-        public RayRange(float x1, float y1, float x2, float y2, Vector2 dir)
-        {
-            Start = new Vector2(x1, y1);
-            End = new Vector2(x2, y2);
-            Dir = dir;
-        }
-
-        public readonly Vector2 Start, End, Dir;
+        Start = new Vector2(x1, y1);
+        End = new Vector2(x2, y2);
+        Dir = dir;
     }
 
+    public readonly Vector2 Start, End, Dir;
+}
+
+public class PlayerMovement : MonoBehaviour, IPlayerController
+{
 
     public Vector3 Velocity { get; private set; }
     public FrameInput Input { get; private set; }
@@ -58,9 +65,6 @@ public class PlayerMovement : MonoBehaviour
         MoveCharacter(); // Actually perform the axis movement
 
     }
-
-
-
 
     #region Gather Input
 
@@ -348,8 +352,5 @@ public class PlayerMovement : MonoBehaviour
     }
 
     #endregion
-
-
-
 
 }
