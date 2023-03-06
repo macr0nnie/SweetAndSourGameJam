@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public interface IPlayerController
 {
@@ -66,7 +67,7 @@ public class PlayerMovement : MonoBehaviour, IPlayerController
 
     }
 
-    #region Gather Input
+
 
     private void GatherInput()
     {
@@ -82,9 +83,6 @@ public class PlayerMovement : MonoBehaviour, IPlayerController
         }
     }
 
-    #endregion
-
-    #region Collisions
 
     [Header("COLLISION")][SerializeField] private Bounds _characterBounds;
     [SerializeField] private LayerMask _groundLayer;
@@ -175,10 +173,7 @@ public class PlayerMovement : MonoBehaviour, IPlayerController
         Gizmos.DrawWireCube(transform.position + _characterBounds.center + move, _characterBounds.size);
     }
 
-    #endregion
-
-
-    #region Walk
+  
 
     [Header("WALKING")][SerializeField] private float _acceleration = 90;
     [SerializeField] private float _moveClamp = 13;
@@ -212,9 +207,7 @@ public class PlayerMovement : MonoBehaviour, IPlayerController
         }
     }
 
-    #endregion
-
-    #region Gravity
+   
 
     [Header("GRAVITY")][SerializeField] private float _fallClamp = -40f;
     [SerializeField] private float _minFallSpeed = 80f;
@@ -241,9 +234,7 @@ public class PlayerMovement : MonoBehaviour, IPlayerController
         }
     }
 
-    #endregion
-
-    #region Jump
+  
 
     [Header("JUMPING")][SerializeField] private float _jumpHeight = 30;
     [SerializeField] private float _jumpApexThreshold = 10f;
@@ -300,10 +291,6 @@ public class PlayerMovement : MonoBehaviour, IPlayerController
         }
     }
 
-    #endregion
-
-    #region Move
-
     [Header("MOVE")]
     [SerializeField, Tooltip("Raising this value increases collision accuracy at the cost of performance.")]
     private int _freeColliderIterations = 10;
@@ -351,6 +338,7 @@ public class PlayerMovement : MonoBehaviour, IPlayerController
         }
     }
 
-    #endregion
-
+  
 }
+
+
